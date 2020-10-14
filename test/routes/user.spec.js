@@ -71,4 +71,11 @@ describe('User test suite', () => {
         expect(res.body.data).to.deep.include(data);
       });
   });
+
+  it('should DELETE /users/:id', () => request
+    .delete('users/2')
+    .set('Authorization', `Bearer ${TOKEN}`)
+    .then((res) => {
+      expect(res.body.data).to.be.eq(null);
+    }));
 });
