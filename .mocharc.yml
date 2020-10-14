@@ -3,4 +3,3 @@ extension:
   - js
 recursive: true
 reporter: spec
-timeout: 5000
