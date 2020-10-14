@@ -38,4 +38,21 @@ describe('User test suite', () => {
         done(err);
       });
   });
+
+  it('should POST /users', (done) => {
+    const data = {
+      email: `test-${Math.floor(Math.random() * 9999)}@mail.ca`,
+      name: 'Test name',
+      gender: 'Male',
+      status: 'Inactive',
+    };
+
+    request
+      .post('users')
+      .send(data)
+      .end((err, res) => {
+        expect(res.body.data).to.deep.include(data);
+        done(err);
+      });
+  });
 });
