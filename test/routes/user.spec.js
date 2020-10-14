@@ -6,6 +6,23 @@ let TEST_URL = 'https://gorest.co.in/public-api';
 const request = supertest(TEST_URL);
 
 describe('User test suite', () => {
+  it('should POST /users', (done) => {
+    const data = {
+      email: `test-${Math.floor(Math.random() * 9999)}@mail.ca`,
+      name: 'Test name',
+      gender: 'Male',
+      status: 'Inactive',
+    };
+
+    request
+      .post('users')
+      .send(data)
+      .end((err, res) => {
+        expect(res.body.data).to.deep.include(data);
+        done(err);
+      });
+  });
+
   it('should GET /users', (done) => {
     request
       .get('/users')
@@ -39,20 +56,19 @@ describe('User test suite', () => {
       });
   });
 
-  it('should POST /users', (done) => {
+  it('should PUT /users/:id', () => {
+    // data to update
     const data = {
-      email: `test-${Math.floor(Math.random() * 9999)}@mail.ca`,
-      name: 'Test name',
-      gender: 'Male',
-      status: 'Inactive',
+      status: 'Active',
+      name: `Luffy - ${Math.floor(Math.random() * 9999)}`,
     };
 
-    request
-      .post('users')
+    return request
+      .put('users/132')
+      .set('Authorization', `Bearer ${TOKEN}`)
       .send(data)
-      .end((err, res) => {
+      .then((res) => {
         expect(res.body.data).to.deep.include(data);
-        done(err);
       });
   });
 });
