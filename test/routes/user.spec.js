@@ -101,6 +101,7 @@ describe("User test suite", () => {
   });
 
   // code added  post to update data
+  it("should POST/users/:id", () => {
   it("should PUT/users/:id", () => {
     // data to update
     const data = {
@@ -118,6 +119,7 @@ describe("User test suite", () => {
   });
 
   // code added  post to update data
+  it("should PUT/users/:id", () => {
   it("should POST/users/:id", () => {
     // data to update
     const data = {
@@ -133,6 +135,15 @@ describe("User test suite", () => {
         expect(res.body.data).to.deep.include(data);
       });
   });
+
+  //updated delete
+  it("should DELETE /users/:id", () =>
+    request
+      .delete("users/2")
+      .set("Authorization", `Bearer ${TOKEN}`)
+      .then((res) => {
+        expect(res.body.data).to.be.eq(null);
+      }));
 
   it("should DELETE /users/:id", () =>
     request
